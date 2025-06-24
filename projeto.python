@@ -1,0 +1,64 @@
+# sistema_condominio.py
+
+moradores = {}
+tentativas_negadas = []
+
+def cadastrar_morador(nome, cpf):
+    if cpf in moradores:
+        print(f"Morador com CPF {cpf} já está cadastrado.")
+    else:
+        moradores[cpf] = nome
+        print(f"{nome} cadastrado com sucesso!")
+
+def verificar_entrada(cpf):
+    if cpf in moradores:
+        print(f"Entrada permitida. Bem-vindo(a), {moradores[cpf]}!")
+    else:
+        print("Entrada negada. Morador não cadastrado.")
+        tentativas_negadas.append(cpf)
+
+def listar_moradores():
+    if not moradores:
+        print("Nenhum morador cadastrado.")
+    else:
+        print("\n--- Lista de Moradores Cadastrados ---")
+        for cpf, nome in moradores.items():
+            print(f"Nome: {nome} | CPF: {cpf}")
+
+def mostrar_tentativas_negadas():
+    if not tentativas_negadas:
+        print("Nenhuma tentativa de entrada negada registrada.")
+    else:
+        print("\n--- Tentativas de Entrada Negadas ---")
+        for cpf in tentativas_negadas:
+            print(f"Tentativa com CPF não cadastrado: {cpf}")
+
+def menu():
+    while True:
+        print("\n==== Sistema do Condomínio ====")
+        print("1 - Cadastrar Morador")
+        print("2 - Verificar Entrada de Morador")
+        print("3 - Listar Moradores")
+        print("4 - Mostrar Tentativas de Entrada Negadas")
+        print("5 - Sair")
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == '1':
+            nome = input("Nome do morador: ")
+            cpf = input("CPF do morador: ")
+            cadastrar_morador(nome, cpf)
+        elif opcao == '2':
+            cpf = input("Digite o CPF para verificar entrada: ")
+            verificar_entrada(cpf)
+        elif opcao == '3':
+            listar_moradores()
+        elif opcao == '4':
+            mostrar_tentativas_negadas()
+        elif opcao == '5':
+            print("Encerrando o sistema.")
+            break
+        else:
+            print("Opção inválida.")
+
+menu()
+
